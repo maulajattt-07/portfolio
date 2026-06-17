@@ -360,6 +360,16 @@
       </div>
     </div>
     <div class="service-card reveal">
+      <img class="service-card-img" src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=600&q=80" alt="Funnel Building">
+      <div class="service-card-body">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg></div>
+        <h3>Funnel Building</h3>
+        <p>High-converting sales funnels and landing pages designed inside GHL to capture leads, drive sales, and grow your revenue on autopilot.</p>
+        <div class="service-tags"><span>Sales Funnels</span><span>Landing Pages</span><span>Upsells</span></div>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
       <img class="service-card-img" src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600&q=80" alt="SaaS Mode Setup">
       <div class="service-card-body">
         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
@@ -506,7 +516,7 @@
       </div>
     </div>
     <div class="contact-form reveal">
-      <div class="form-success" id="formSuccess">Message send ho gaya! Mein jald hi contact karunga.</div>
+      <div class="form-success" id="formSuccess">Thank you for reaching out! I have received your message and will get back to you within 24 hours. Looking forward to working with you!</div>
       <form id="contactForm" action="https://formspree.io/f/xkoaabgn" method="POST">
         <input type="text" name="name" placeholder="Your Name *" required>
         <input type="email" name="email" placeholder="Your Email *" required>
@@ -566,33 +576,111 @@
     } catch { btn.textContent = 'Try Again'; btn.disabled = false; }
   });
 
-  // Case Study Modal with AI
-  async function openCaseStudy(title, context) {
-    document.getElementById('modalTitle').textContent = title;
-    document.getElementById('modalContent').innerHTML = '<div class="modal-loading"><div class="modal-spinner"></div>Generating case study...</div>';
-    document.getElementById('caseModal').classList.add('open');
+  // Pre-written Case Studies
+  const caseStudies = {
+    'AI Receptionist — Med Spa': `
+      <h4>The Challenge</h4>
+      <p>A busy medical spa was losing potential clients due to missed calls after hours and long wait times on the phone. The front desk staff was overwhelmed handling bookings, answering FAQs, and managing follow-ups simultaneously.</p>
+      <h4>The Solution</h4>
+      <p>We built a fully automated AI Voice Agent inside GoHighLevel's Conversation AI that operates 24/7. The agent handles inbound calls, answers common questions about services and pricing, qualifies leads, and directly books appointments into the GHL calendar.</p>
+      <h4>Key Features</h4>
+      <ul>
+        <li>24/7 AI voice receptionist — never misses a call</li>
+        <li>Automatic appointment booking into GHL calendar</li>
+        <li>Smart FAQ handling for services, pricing, and availability</li>
+        <li>Lead qualification and CRM pipeline entry</li>
+        <li>Follow-up SMS sent automatically after every call</li>
+      </ul>
+      <h4>Results</h4>
+      <p>The spa went from handling 80 calls per month manually to automating 300+ calls monthly. Booking rate increased by 65% and staff workload dropped significantly — allowing the team to focus on in-person client experience.</p>
+    `,
+    'Lead Nurture System — Real Estate': `
+      <h4>The Challenge</h4>
+      <p>A real estate agency was generating leads from Facebook Ads but losing most of them due to slow follow-up and no structured nurture process. Agents were manually texting leads and forgetting to follow up consistently.</p>
+      <h4>The Solution</h4>
+      <p>We designed a 15-step automated nurture workflow inside GHL that engages leads immediately after they enter the CRM. The sequence combines SMS, email, and voicedrops at strategic intervals to keep the agency top-of-mind without any manual effort.</p>
+      <h4>Key Features</h4>
+      <ul>
+        <li>Instant SMS response within 60 seconds of lead coming in</li>
+        <li>15-step nurture sequence over 30 days</li>
+        <li>Personalized email templates with property recommendations</li>
+        <li>Voicedrops for a personal human touch</li>
+        <li>Automatic pipeline stage movement based on lead response</li>
+      </ul>
+      <h4>Results</h4>
+      <p>Lead-to-appointment rate increased by 40% within the first month. The agency closed 3 additional deals in the first 60 days directly attributed to the nurture system — generating over $25,000 in additional commission revenue.</p>
+    `,
+    'Multi-Day Booking — Dog Boarding': `
+      <h4>The Challenge</h4>
+      <p>A pet boarding facility was managing all bookings manually via phone calls and spreadsheets. Multi-day stays required tracking capacity per day, which caused overbooking issues and customer complaints during peak seasons.</p>
+      <h4>The Solution</h4>
+      <p>We configured GHL's Class Booking Calendar system to handle multi-day pet boarding stays with daily capacity limits. Combined with automated confirmation emails, reminder sequences, and a clean booking page — the entire process became self-service for pet owners.</p>
+      <h4>Key Features</h4>
+      <ul>
+        <li>Class booking calendar with daily capacity management</li>
+        <li>Custom booking form collecting pet details and special needs</li>
+        <li>Automated confirmation email and SMS on booking</li>
+        <li>24-hour reminder sequence before check-in</li>
+        <li>Post-stay review request automation</li>
+      </ul>
+      <h4>Results</h4>
+      <p>Zero overbooking incidents since launch. Online bookings increased to 85% of total reservations, reducing phone call volume by 70%. Customer satisfaction score improved significantly due to clearer communication and reminders.</p>
+    `,
+    'White-Label SaaS — Marketing Agency': `
+      <h4>The Challenge</h4>
+      <p>A digital marketing agency wanted to offer GHL as a white-label SaaS product to their clients but had no technical setup. They needed a professional branded platform, smooth client onboarding, and an easy way to deploy their proven marketing systems to new clients fast.</p>
+      <h4>The Solution</h4>
+      <p>We set up complete GHL SaaS Mode with custom white-label branding, built a master snapshot containing all their proven funnels and automations, and created an automated onboarding workflow that provisions new sub-accounts within minutes of a client signing up.</p>
+      <h4>Key Features</h4>
+      <ul>
+        <li>Full white-label GHL setup with custom domain and branding</li>
+        <li>Master snapshot with funnels, automations, and pipelines</li>
+        <li>Automated sub-account creation on new client signup</li>
+        <li>Custom pricing plans and Stripe billing integration</li>
+        <li>Onboarding email sequence for new agency clients</li>
+      </ul>
+      <h4>Results</h4>
+      <p>The agency successfully onboarded 20+ clients onto their SaaS platform within 3 months. Monthly recurring revenue grew by $8,000 and the time to onboard a new client dropped from 3 days to under 30 minutes.</p>
+    `,
+    'A2P 10DLC Registration — E-Commerce': `
+      <h4>The Challenge</h4>
+      <p>An e-commerce brand was sending bulk SMS campaigns through GHL but messages were being flagged as spam and deliverability was below 40%. They had no A2P 10DLC compliance setup and were at risk of having their messaging completely blocked by carriers.</p>
+      <h4>The Solution</h4>
+      <p>We handled the complete A2P 10DLC registration process — from brand registration to campaign use case approval — ensuring full carrier compliance. Then rebuilt their SMS campaign system inside GHL with proper segmentation and timing to maximize deliverability.</p>
+      <h4>Key Features</h4>
+      <ul>
+        <li>Full A2P 10DLC brand and campaign registration</li>
+        <li>Carrier compliance audit and cleanup of existing contacts</li>
+        <li>Segmented SMS lists based on customer behavior</li>
+        <li>Promotional and transactional campaign workflows</li>
+        <li>Opt-out and compliance language on all messages</li>
+      </ul>
+      <h4>Results</h4>
+      <p>SMS deliverability jumped from 40% to 97% after full compliance setup. The brand now reaches 5,000+ customers monthly with promotional campaigns generating an average 8x ROI on their SMS marketing spend.</p>
+    `,
+    'Sales Funnel — Coaching Business': `
+      <h4>The Challenge</h4>
+      <p>An online coach had great content and expertise but no structured system to convert website visitors into paying clients. They were relying on social media DMs and had no automated follow-up — resulting in inconsistent monthly revenue.</p>
+      <h4>The Solution</h4>
+      <p>We built a complete multi-step sales funnel inside GHL — from a lead magnet landing page all the way through to a paid program checkout. The funnel includes automated email nurture, a booking page for discovery calls, and an upsell sequence after purchase.</p>
+      <h4>Key Features</h4>
+      <ul>
+        <li>Lead magnet landing page with free resource download</li>
+        <li>7-email nurture sequence warming leads to book a call</li>
+        <li>Discovery call booking page integrated with GHL calendar</li>
+        <li>Sales page with Stripe payment integration</li>
+        <li>Post-purchase upsell and onboarding automation</li>
+      </ul>
+      <h4>Results</h4>
+      <p>The coach went from 2-3 inconsistent clients per month to a predictable 8-12 new clients monthly. The funnel generates leads daily on autopilot and the automated follow-up sequence converts 30% of booked discovery calls into paying clients.</p>
+    `
+  };
 
-    try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 1000,
-          messages: [{
-            role: 'user',
-            content: `Write a professional case study for a GHL (GoHighLevel) expert's portfolio. Project: "${title}". Details: ${context}. 
-            Format with these sections using HTML: Challenge, Solution, Key Features (bullet list), Results. 
-            Keep it concise, professional, and impressive. Use <h4> for section headers and <p> or <ul><li> for content. No intro fluff.`
-          }]
-        })
-      });
-      const data = await response.json();
-      const text = data.content[0].text;
-      document.getElementById('modalContent').innerHTML = text;
-    } catch(err) {
-      document.getElementById('modalContent').innerHTML = '<p>Case study could not be loaded at this time. Please try again.</p>';
-    }
+  function openCaseStudy(title, context) {
+    document.getElementById('modalTitle').textContent = title;
+    const html = caseStudies[title] || '<p>Case study coming soon.</p>';
+    document.getElementById('modalContent').innerHTML = html;
+    document.getElementById('caseModal').classList.add('open');
   }
 
   function closeModal() {
